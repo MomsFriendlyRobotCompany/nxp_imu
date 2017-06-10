@@ -1,14 +1,21 @@
-adafruit-precision-nxp-9-dof
+.. figure:: pics/imu-iso.jpg
+    :align: center
+
+
+NXP IMU
 ==============================
 
-Python drivers for `Adafruit Precision NXP 9-DOF <https://www.adafruit.com/product/3463>`_
+Python drivers for `Adafruit Precision NXP 9-DOF <https://www.adafruit.com/product/3463>`_.
+This is basically a python version of Adafruit's `FXOS8700 <https://github.com/adafruit/Adafruit_FXOS8700>`_
+and their `FXAS21002C <https://github.com/adafruit/Adafruit_FXAS21002C>`_ written
+in C++ for the Arduino.
 
 NXP Precision 9DoF
 ---------------------
 
 The board consists of two separate ICs, described below:
 
-FXOS8700 3-Axis Accelerometer/Magnetometer
+**FXOS8700 3-Axis Accelerometer/Magnetometer**
 
 - 2-3.6V Supply
 - ±2 g/±4 g/±8 g adjustable acceleration range
@@ -17,7 +24,7 @@ FXOS8700 3-Axis Accelerometer/Magnetometer
 - 14-bit ADC resolution for acceleration measurements
 - 16-bit ADC resolution for magnetic measurements
 
-FXAS21002 3-Axis Gyroscope
+**FXAS21002 3-Axis Gyroscope**
 
 - 2-3.6V Supply
 - ±250/500/1000/2000°/s configurable range
@@ -27,6 +34,10 @@ FXAS21002 3-Axis Gyroscope
 
 Setup
 --------
+
+.. figure:: pics/imu-front.jpg
+
+.. figure:: pics/imu-back.jpg
 
 `Adafruit setup tutorial <https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all>`_
 

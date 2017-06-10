@@ -6,7 +6,7 @@ from build_utils import PublishCommand
 from build_utils import BinaryDistribution
 
 
-PACKAGE_NAME = 'nxp'
+PACKAGE_NAME = 'nxp_imu'
 BuildCommand.pkg = PACKAGE_NAME
 PublishCommand.pkg = PACKAGE_NAME
 PublishCommand.version = VERSION
