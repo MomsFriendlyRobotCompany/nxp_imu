@@ -1,4 +1,4 @@
-.. figure:: pics/imu-iso.jpg
+.. figure:: docs/pics/imu-iso.jpg
     :align: center
 
 
@@ -35,9 +35,9 @@ The board consists of two separate ICs, described below:
 Setup
 --------
 
-.. figure:: pics/imu-front.jpg
+.. figure:: docs/pics/imu-front.jpg
 
-.. figure:: pics/imu-back.jpg
+.. figure:: docs/pics/imu-back.jpg
 
 `Adafruit setup tutorial <https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all>`_
 
