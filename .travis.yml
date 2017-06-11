@@ -62,7 +62,7 @@ python:
 
 # install other libraries using pip
 install:
-    - ./install-opencv.sh
+    # - ./install-opencv.sh
     - pip install -U pip setuptools wheel
     # - pip install -U pyzmq pyyaml opencvutils simplejson wit quaternions numdifftools pyrk
     - pip install -U fake_rpi build_utils
