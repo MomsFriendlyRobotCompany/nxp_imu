@@ -114,9 +114,10 @@ class FXAS21002(I2C):
 		reg = self.read8(GYRO_REGISTER_CTRL_REG1)
 		self.write8(GYRO_REGISTER_CTRL_REG1, reg | 2)
 
-	def reset(self):
-		self.write8(GYRO_REGISTER_CTRL_REG1, (1 << 6))
-		time.sleep(0.1)
+	# FIXME: doesn't work!!
+	# def reset(self):
+	# 	self.write8(GYRO_REGISTER_CTRL_REG1, (1 << 6))
+	# 	time.sleep(0.1)
 
 	def temperature(self):
 		"""Return gyro temperature in C, ONLY works in ACTIVE mode"""
