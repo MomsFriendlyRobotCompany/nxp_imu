@@ -1,8 +1,15 @@
 from __future__ import print_function
 from __future__ import division
+# import platform
+import os
 
 try:
+	# if platform.system().lower() == 'linux' and 'TRAVIS' in os.environ:
+	if 'TRAVIS' in os.environ:
+		raise ImportError()
+
 	from smbus2 import SMBus
+
 except ImportError:
 	from fake_rpi.smbus import SMBus as fakeSMBus
 
