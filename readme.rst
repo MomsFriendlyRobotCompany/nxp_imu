@@ -1,4 +1,4 @@
-.. figure:: pics/imu-iso.jpg
+.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof/master/docs/pics/imu-iso.jpg
     :align: center
 
 
@@ -35,9 +35,9 @@ The board consists of two separate ICs, described below:
 Setup
 --------
 
-.. figure:: pics/imu-front.jpg
+.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof/master/docs/pics/imu-front.jpg
 
-.. figure:: pics/imu-back.jpg
+.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof/master/docs/pics/imu-back.jpg
 
 `Adafruit setup tutorial <https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all>`_
 
@@ -48,7 +48,7 @@ The ``/docs`` folder has the datasheets for both the accel/magnetometer and the
 gyros.
 
 MIT License
---------------
+===============
 
 **Copyright (c) 2017 Kevin J. Walchko**
 
