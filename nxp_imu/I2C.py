@@ -1,16 +1,27 @@
 from __future__ import print_function
 from __future__ import division
-# from math import pi
-from smbus2 import SMBus
-import time
 
+try:
+	from smbus2 import SMBus
+except ImportError:
+	from fake_rpi.smbus import SMBus as fakeSMBus
+
+	class SMBus(fakeSMBus):
+		# @printf
+		def read_byte_data(self, i2c_addr, register):
+				ret = 0xff
+				if i2c_addr == 0x21:
+						ret = 0xD7
+				elif i2c_addr == 0x1F:
+						ret = 0xC7
+				return ret
 
 """
 accel/mag - 0x1f
 gyro - 0x21
 other stuff - 0x40, 0x70-0x75
 pi@r2d2 nxp $ sudo i2cdetect -y 1
-	 0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+	0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
 00:          -- -- -- -- -- -- -- -- -- -- -- -- --
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1f
 20: -- 21 -- -- -- -- -- -- -- -- -- -- -- -- -- --

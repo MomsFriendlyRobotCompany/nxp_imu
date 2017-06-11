@@ -100,26 +100,6 @@ class FXOS8700(I2C):
 	def __del__(self):
 		self.i2c.close()
 
-	# def read8(self, reg):
-	# 	b = self.bus.read_byte_data(self.accelAddr, reg)
-	# 	return b
-	#
-	# def read_block(self, reg, size):
-	# 	block = self.bus.read_i2c_block_data(self.accelAddr, reg, size)
-	# 	return block
-	#
-	# def write_block(self, reg, data):
-	# 	self.bus.write_i2c_block_data(self.accelAddr, reg, data)
-	#
-	# def write8(self, reg, data):
-	# 	self.bus.write_byte_data(self.accelAddr, reg, data)
-
-	def getAccel(self):
-		pass
-
-	def getMag(self):
-		pass
-
 	def get(self):
 		# 13 bytes: status, ax,ay, az, mx, my, mz
 		# status, axhi, axlo, ayhi, aylo ... mxhi, mxlo ...
@@ -150,16 +130,13 @@ class FXOS8700(I2C):
 
 		mag = form[3:]
 		mag = [x * MAG_UT_LSB for x in mag]
-		# print('-'*20)
-		# print('accel:', a2)
-		# print('mag:', mag)
 		return (a2, mag)
 
 
-if __name__ == "__main__":
-	import time
-	f = FXOS8700()
-
-	for _ in range(10):
-		f.get()
-		time.sleep(0.5)
+# if __name__ == "__main__":
+# 	import time
+# 	f = FXOS8700()
+#
+# 	for _ in range(10):
+# 		f.get()
+# 		time.sleep(0.5)

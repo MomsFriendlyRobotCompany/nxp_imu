@@ -3,7 +3,6 @@
 from __future__ import print_function
 from __future__ import division
 from math import pi
-# from smbus2 import SMBus
 import time
 from .I2C import I2C
 
@@ -144,9 +143,9 @@ class FXAS21002(I2C):
 		return data
 
 
-if __name__ == "__main__":
-	f = FXAS21002(GYRO_RANGE_250DPS)
-
-	for _ in range(10):
-		f.get()
-		time.sleep(0.5)
+# if __name__ == "__main__":
+# 	f = FXAS21002(GYRO_RANGE_250DPS)
+#
+# 	for _ in range(10):
+# 		f.get()
+# 		time.sleep(0.5)

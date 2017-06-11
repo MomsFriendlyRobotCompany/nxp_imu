@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 
 from __future__ import division, print_function
-from nxp import FXAS21002, FXOS8700
-from nxp.FXAS21002 import GYRO_RANGE_250DPS
-from nxp.I2C import I2C
-from nxp.IMU import IMU
-from nxp.AHRS import AHRS
+from nxp_imu import FXAS21002, FXOS8700
+from nxp_imu.FXAS21002 import GYRO_RANGE_250DPS
+from nxp_imu import I2C
+from nxp_imu import IMU
+from nxp_imu import AHRS
 import time
-
-
 
 
 def gyro():
