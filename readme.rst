@@ -5,6 +5,9 @@
 NXP IMU
 ==============================
 
+.. image:: https://travis-ci.org/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof.svg?branch=master
+    :target: https://travis-ci.org/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof
+
 Python drivers for `Adafruit Precision NXP 9-DOF <https://www.adafruit.com/product/3463>`_.
 This is basically a python version of Adafruit's `FXOS8700 <https://github.com/adafruit/Adafruit_FXOS8700>`_
 and their `FXAS21002C <https://github.com/adafruit/Adafruit_FXAS21002C>`_ written
