@@ -1,6 +1,6 @@
-from . import FXAS21002.FXAS21002
-from . import FXOS8700.FXOS8700
-from . import version.__verions__
+from .FXAS21002 import FXAS21002
+from .FXOS8700 import FXOS8700
+from .version import __version__
 
 __author__ = 'Kevin J. Walchko'
 __license__ = 'MIT'

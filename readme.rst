@@ -41,6 +41,12 @@ Setup
 
 `Adafruit setup tutorial <https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all>`_
 
+Documents
+------------
+
+The ``/docs`` folder has the datasheets for both the accel/magnetometer and the
+gyros.
+
 MIT License
 --------------
 
