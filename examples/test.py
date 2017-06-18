@@ -37,10 +37,12 @@ def a():
 	imu = IMU()
 	ahrs = AHRS(True)
 
+	print("| {:20} | {:20} |".format("Accels [g's]", "Orient(r,p,h) [deg]") )
+	print('-'*47)
 	for _ in range(10):
-		a, m, _ = imu.get()
+		a, m, g = imu.get()
 		r, p, h = ahrs.getOrientation(a, m)
-		print(' >> ', r, p, h)
+		print('| {:>6.2f} {:>6.2f} {:>6.2f} | {:>6.2f} {:>6.2f} {:>6.2f} |'.format(a[0], a[1], a[2], r, p, h))
 		time.sleep(1.0)
 
 
