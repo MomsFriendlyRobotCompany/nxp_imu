@@ -1,12 +1,20 @@
-.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof/master/docs/pics/imu-iso.jpg
+.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/nxp_imu/master/docs/pics/imu-iso.jpg
     :align: center
 
 
 NXP IMU
 ==============================
 
-.. image:: https://travis-ci.org/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof.svg?branch=master
-    :target: https://travis-ci.org/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof
+.. image:: https://img.shields.io/pypi/l/nxp_imu.svg
+	:target: https://github.com/MomsFriendlyRobotCompany/nxp_imu
+.. image:: https://img.shields.io/pypi/pyversions/nxp_imu.svg
+	:target: https://github.com/MomsFriendlyRobotCompany/nxp_imu
+.. image:: https://img.shields.io/pypi/wheel/nxp_imu.svg
+	:target: https://github.com/MomsFriendlyRobotCompany/nxp_imu
+.. image:: https://img.shields.io/pypi/v/nxp_imu.svg
+	:target: https://github.com/MomsFriendlyRobotCompany/nxp_imu
+.. image:: https://travis-ci.org/MomsFriendlyRobotCompany/nxp_imu.svg?branch=master
+    :target: https://travis-ci.org/MomsFriendlyRobotCompany/nxp_imu
 
 Python drivers for `Adafruit Precision NXP 9-DOF <https://www.adafruit.com/product/3463>`_.
 This is basically a python version of Adafruit's `FXOS8700 <https://github.com/adafruit/Adafruit_FXOS8700>`_
@@ -38,9 +46,9 @@ The board consists of two separate ICs, described below:
 Setup
 --------
 
-.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof/master/docs/pics/imu-front.jpg
+.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/nxp_imu/master/docs/pics/imu-front.jpg
 
-.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/adafruit-precision-nxp-9-dof/master/docs/pics/imu-back.jpg
+.. figure:: https://raw.githubusercontent.com/MomsFriendlyRobotCompany/nxp_imu/master/docs/pics/imu-back.jpg
 
 `Adafruit setup tutorial <https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all>`_
 
