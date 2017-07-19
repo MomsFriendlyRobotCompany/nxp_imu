@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Gyro
+# MIT License
 
 from __future__ import print_function
 from __future__ import division
@@ -77,8 +79,9 @@ class FXAS21002(I2C):
 		# 	self.scale *= SENSORS_DPS_TO_RADS
 
 		if self.read8(GYRO_REGISTER_WHO_AM_I) == FXAS21002C_ID:
-			print('Found FXAS21002C gyro')
-			print('Temperature:', self.temperature())
+			# print('Found FXAS21002C gyro')
+			# print('Temperature:', self.temperature())
+			pass
 		else:
 			raise Exception('Could not find FXAS21002C gyro')
 
@@ -87,19 +90,19 @@ class FXAS21002(I2C):
 		====================================================================
 		BIT  Symbol    Description                                   Default
 		---  ------    --------------------------------------------- -------
-		6  RESET     Reset device on 1                                   0
-		5  ST        Self test enabled on 1                              0
+		6    RESET     Reset device on 1                                   0
+		5    ST        Self test enabled on 1                              0
 		4:2  DR        Output data rate                                  000
-					000 = 800 Hz
-					001 = 400 Hz
-					010 = 200 Hz
-					011 = 100 Hz
-					100 = 50 Hz
-					101 = 25 Hz
-					110 = 12.5 Hz
-					111 = 12.5 Hz
-		1  ACTIVE    Standby(0)/Active(1)                                0
-		0  READY     Standby(0)/Ready(1)                                 0
+							000 = 800 Hz
+							001 = 400 Hz
+							010 = 200 Hz
+							011 = 100 Hz
+							100 = 50 Hz
+							101 = 25 Hz
+							110 = 12.5 Hz
+							111 = 12.5 Hz
+		1    ACTIVE    Standby(0)/Active(1)                                0
+		0    READY     Standby(0)/Ready(1)                                 0
 		"""
 		# Reset then switch to active mode with 100Hz output
 		# self.write8(GYRO_REGISTER_CTRL_REG1, 0x00)  # don't need this?
@@ -130,10 +133,11 @@ class FXAS21002(I2C):
 		# print('i2c', data)
 		# data = self.little_endian(data)
 		ret = [0]*3
-		print('raw', data)
+		# print('raw', data)
 		for i in range(0, 6, 2):
 			# data = self.twos_comp(data, 16)
-			d = self.little_endian2(data[i], data[i+1])
+			# d = self.little_endian2(data[i], data[i+1])
+			d = (data[i] << 8) | data[i+1]
 			# print('d', d)
 			ret[i//2] = self.twos_comp(d, 16) * self.scale
 

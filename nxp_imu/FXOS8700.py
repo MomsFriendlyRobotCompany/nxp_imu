@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# Accel and Magnetometer
+# MIT License
 
 from __future__ import division
 from __future__ import print_function
@@ -116,7 +118,7 @@ class FXOS8700(I2C):
 		form = [0]*6
 		# print('struct', data)
 		for i in range(0, 12, 2):
-			form[i//2] = data[i] << 8 | data[i+1]
+			form[i//2] = (data[i] << 8) | data[i+1]
 
 		accel = form[:3]
 		a2 = list(accel)

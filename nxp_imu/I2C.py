@@ -45,10 +45,10 @@ class I2C(object):
 		self.i2c = SMBus(bus)
 		# self.i2c = g_i2c
 		self.address = address
-		print('-'*30)
-		print('  I2C Device:', hex(address))
-		print('  Bus:', bus)
-		print(' ')
+		# print('-'*30)
+		# print('  I2C Device:', hex(address))
+		# print('  Bus:', bus)
+		# print(' ')
 
 	def __del__(self):
 		self.i2c.close()
@@ -76,6 +76,11 @@ class I2C(object):
 		return form
 
 	def little_endian2(self, hi, low):
+		"""
+		Little endian, LSB store in b0:
+			MSB     ...   LSB
+			b15 b14 ... b1 b0
+		"""
 		return (hi << 8) | low
 
 	def twos_comp(self, val, bits):

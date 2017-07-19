@@ -22,5 +22,5 @@ class IMU(object):
 		"""
 		"""
 		accel, mag = self.accel.get()
-		gyro = self.accel.get()
+		gyro = self.gyro.get()
 		return (accel, mag, gyro)
