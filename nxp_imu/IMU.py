@@ -7,11 +7,11 @@ from .FXOS8700 import FXOS8700
 
 
 class IMU(object):
-	def __init__(self, dps=250):
+	def __init__(self, dps=250, verbose=False):
 		"""
 		"""
-		self.accel = FXOS8700()
-		self.gyro = FXAS21002(dps)
+		self.accel = FXOS8700(verbose=verbose)
+		self.gyro = FXAS21002(dps, verbose=verbose)
 
 	def __del__(self):
 		"""

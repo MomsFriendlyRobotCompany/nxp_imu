@@ -55,7 +55,7 @@ MAG_UT_LSB      = 0.1
 
 
 class FXOS8700(I2C):
-	def __init__(self, rng=None):
+	def __init__(self, rng=None, verbose=False):
 		I2C.__init__(self, FXOS8700_ADDRESS)
 		# if accelSensorID is None:
 		# 	accelSensorID = FXOS8700_ADDRESS
@@ -66,9 +66,10 @@ class FXOS8700(I2C):
 		# self.bus = SMBus(1)
 
 		if self.read8(FXOS8700_REGISTER_WHO_AM_I) == FXOS8700_ID:
-			print('Found accel')
+			if verbose:
+				print('Found FX0S8700 accel at', hex(FXOS8700_ADDRESS))
 		else:
-			raise Exception('wrong accel address')
+			raise Exception('Did not find FX0S8700 accel at', hex(FXOS8700_ADDRESS))
 
 		if rng is None:
 			self._range = ACCEL_RANGE_2G
@@ -131,7 +132,9 @@ class FXOS8700(I2C):
 		# accel = [(x >> 2) * ACCEL_MG_LSB_2G for x in accel]  # FIXME: do for other accels
 
 		mag = form[3:]
-		mag = [x * MAG_UT_LSB for x in mag]
+		# mag = [x * MAG_UT_LSB for x in mag]
+		for i in range(3):
+			mag[i] = self.twos_comp(mag[i], 16) * MAG_UT_LSB
 		return (a2, mag)
 
 

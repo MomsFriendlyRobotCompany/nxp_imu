@@ -57,7 +57,7 @@ SENSORS_DPS_TO_RADS = pi/180
 
 
 class FXAS21002(I2C):
-	def __init__(self, gyro_range, bus=1):
+	def __init__(self, gyro_range, bus=1, verbose=False):
 		I2C.__init__(self, address=FXAS21002C_ADDRESS, bus=bus)
 
 		if gyro_range == GYRO_RANGE_250DPS:
@@ -75,15 +75,12 @@ class FXAS21002(I2C):
 		else:
 			raise Exception('Invalid gyro range')
 
-		# if True:
-		# 	self.scale *= SENSORS_DPS_TO_RADS
-
 		if self.read8(GYRO_REGISTER_WHO_AM_I) == FXAS21002C_ID:
-			# print('Found FXAS21002C gyro')
-			# print('Temperature:', self.temperature())
-			pass
+			if verbose:
+				print('Found FXAS21002C gyro at', hex(FXAS21002C_ADDRESS))
+
 		else:
-			raise Exception('Could not find FXAS21002C gyro')
+			raise Exception('Could not find FXAS21002C gyro at', hex(FXAS21002C_ID))
 
 		"""
 		Set CTRL_REG1 (0x13)
@@ -140,6 +137,7 @@ class FXAS21002(I2C):
 			d = (data[i] << 8) | data[i+1]
 			# print('d', d)
 			ret[i//2] = self.twos_comp(d, 16) * self.scale
+			# ret[i//2] = d * self.scale
 
 		data = ret
 

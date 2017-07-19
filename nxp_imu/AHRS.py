@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from __future__ import division
-from math import atan2, sin, cos, pi
+from __future__ import print_function
+from math import atan2, sin, cos, pi, sqrt
 # from .IMU import IMU
 
 
@@ -10,6 +11,12 @@ class AHRS(object):
 		self.deg = deg
 
 	def getOrientation(self, accel, mag):
+		m = sqrt(accel[0]**2 + accel[1]**2 + accel[2]**2)
+		if m > 0:
+			accel[0] /= m
+			accel[1] /= m
+			accel[2] /= m
+			
 		# roll: Rotation around the X-axis. -180 <= roll <= 180
 		# a positive roll angle is defined to be a clockwise rotation about the positive X-axis
 		#

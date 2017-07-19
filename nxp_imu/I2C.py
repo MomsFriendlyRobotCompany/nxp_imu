@@ -41,14 +41,12 @@ pi@r2d2 nxp $ sudo i2cdetect -y 1
 
 
 class I2C(object):
+	"""
+	This is just a wrapper around i2c. There are so many implementations.
+	"""
 	def __init__(self, address, bus=1):
 		self.i2c = SMBus(bus)
-		# self.i2c = g_i2c
 		self.address = address
-		# print('-'*30)
-		# print('  I2C Device:', hex(address))
-		# print('  Bus:', bus)
-		# print(' ')
 
 	def __del__(self):
 		self.i2c.close()
@@ -65,7 +63,7 @@ class I2C(object):
 		self.i2c.write_i2c_block_data(self.address, reg, data)
 
 	def write8(self, reg, data):
-		print(hex(self.address), reg, data)
+		# print(hex(self.address), reg, data)
 		self.i2c.write_byte_data(self.address, reg, data)
 
 	def little_endian(self, data):
