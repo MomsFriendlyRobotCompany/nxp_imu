@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
 from __future__ import division, print_function
-# from nxp_imu import FXAS21002, FXOS8700
-from nxp_imu import GYRO_RANGE_250DPS
-from nxp_imu import I2C
 from nxp_imu import IMU
 from nxp_imu import AHRS
 import time

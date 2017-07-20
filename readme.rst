@@ -52,6 +52,37 @@ Setup
 
 `Adafruit setup tutorial <https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all>`_
 
+Usage
+-------
+
+See the ``examples`` folder, but to have the IMU run at 4G and 2000 degrees per
+second::
+
+	#!/usr/bin/env python
+
+	from __future__ import division, print_function
+	from nxp_imu import IMU
+	import time
+
+	imu = IMU(gs=4, dps=2000, verbose=True)
+	header = 67
+	print('-'*header)
+	print("| {:17} | {:20} | {:20} |".format("Accels [g's]", " Magnet [uT]", "Gyros [dps]"))
+	print('-'*header)
+	for _ in range(10):
+		a, m, g = imu.get()
+		print('| {:>5.2f} {:>5.2f} {:>5.2f} | {:>6.1f} {:>6.1f} {:>6.1f} | {:>6.1f} {:>6.1f} {:>6.1f} |'.format(
+			a[0], a[1], a[2],
+			m[0], m[1], m[2],
+			g[0], g[1], g[2])
+		)
+		time.sleep(0.50)
+	print('-'*header)
+	print(' uT: micro Tesla')
+	print('  g: gravity')
+	print('dps: degrees per second')
+	print('')
+
 Documents
 ------------
 
@@ -80,4 +111,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-

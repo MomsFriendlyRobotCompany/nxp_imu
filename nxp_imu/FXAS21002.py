@@ -32,22 +32,22 @@ GYRO_REGISTER_CTRL_REG1  = 0x13   # 00000000   r/w
 GYRO_REGISTER_CTRL_REG2  = 0x14   # 00000000   r/w
 GYRO_REGISTER_TEMP       = 0x12
 
-GYRO_RANGE_250DPS  = 250
-GYRO_RANGE_500DPS  = 500
-GYRO_RANGE_1000DPS = 1000
-GYRO_RANGE_2000DPS = 2000
+# GYRO_RANGE_250DPS  = 250
+# GYRO_RANGE_500DPS  = 500
+# GYRO_RANGE_1000DPS = 1000
+# GYRO_RANGE_2000DPS = 2000
 
 GYRO_STANDBY = 0
 GYRO_READY   = 1
 GYRO_ACTIVE  = 2
 
 # ODR bandwidth
-GYRO_BW_800  = 0
-GYRO_BW_400  = (1 << 2)
-GYRO_BW_200  = (2 << 2)
-GYRO_BW_100  = (3 << 2)
-GYRO_BW_50   = (4 << 2)
-GYRO_BW_25   = (5 << 2)
+# GYRO_BW_800  = 0
+# GYRO_BW_400  = (1 << 2)
+# GYRO_BW_200  = (2 << 2)
+# GYRO_BW_100  = (3 << 2)
+# GYRO_BW_50   = (4 << 2)
+# GYRO_BW_25   = (5 << 2)
 
 # Low Pass Filter settings
 GYRO_LPF_HIGH = 0
@@ -57,15 +57,27 @@ GYRO_LPF_LOW  = (2 << 6)
 SENSORS_DPS_TO_RADS = pi/180
 
 bandwidths = [25, 50, 100, 200, 400, 800]
+# bwd = {
+# 	25: GYRO_BW_25,
+# 	50: GYRO_BW_50,
+# 	100: GYRO_BW_100,
+# 	200: GYRO_BW_200,
+# 	400: GYRO_BW_400,
+# 	800: GYRO_BW_800
+# }
+
+# ODR bandwidth
 bwd = {
-	25: GYRO_BW_25,
-	50: GYRO_BW_50,
-	100: GYRO_BW_100,
-	200: GYRO_BW_200,
-	400: GYRO_BW_400,
-	800: GYRO_BW_800
+	25: 0,
+	50: (1 << 2),
+	100: (2 << 2),
+	200: (3 << 2),
+	400: (4 << 2),
+	800: (5 << 2)
 }
+
 dps_range = [250, 500, 1000, 2000]
+
 
 class FXAS21002(I2C):
 	def __init__(self, dps=None, bw=100, bus=1, verbose=False):
@@ -82,24 +94,24 @@ class FXAS21002(I2C):
 			raise Exception('Error talking to FXAS21002C at', hex(FXAS21002C_ID))
 
 		_range = None
-		if dps == GYRO_RANGE_250DPS:
+		if dps == 250:
 			self.scale = GYRO_SENSITIVITY_250DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x03)
 			_range = '250dps'
-		elif dps == GYRO_RANGE_500DPS:
+		elif dps == 500:
 			self.scale = GYRO_SENSITIVITY_500DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x02)
 			_range = '500dps'
-		elif dps == GYRO_RANGE_1000DPS:
+		elif dps == 1000:
 			self.scale = GYRO_SENSITIVITY_1000DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x01)
 			_range = '1000dps'
-		elif dps == GYRO_RANGE_2000DPS:
+		elif dps == 2000:
 			self.scale = GYRO_SENSITIVITY_2000DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x00)
 			_range = '2000dps'
 		else:
-			raise Exception('Invalid gyro range')
+			raise Exception('FXAS21002C: invalid gyro range: {}'.format(dps))
 
 		"""
 		Set CTRL_REG1 (0x13)
@@ -125,14 +137,12 @@ class FXAS21002(I2C):
 		# self.write8(GYRO_REGISTER_CTRL_REG1, (1 << 6))  # set bit 6, reset bit
 		# self.reset()
 		# value = GYRO_BW_100 | GYRO_ACTIVE
-		value = 0
 		if bw in bandwidths:
 			value = bwd[bw] | GYRO_ACTIVE
+			self.write8(GYRO_REGISTER_CTRL_REG1, value)  # set 100 Hz Active=true
+			time.sleep(0.06)  # 60 ms + 1/ODR
 		else:
-			raise Exception('FXAS21002C: invalid bandwidth: {}'.format(bw))
-
-		self.write8(GYRO_REGISTER_CTRL_REG1, value)  # set 100 Hz Active=true
-		time.sleep(0.06)  # 60 ms + 1/ODR
+			raise Exception('FXAS21002C: invalid gyro bandwidth: {}'.format(bw))
 
 		if verbose:
 			print('='*40)
