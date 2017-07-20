@@ -16,7 +16,7 @@ class AHRS(object):
 			accel[0] /= m
 			accel[1] /= m
 			accel[2] /= m
-			
+
 		# roll: Rotation around the X-axis. -180 <= roll <= 180
 		# a positive roll angle is defined to be a clockwise rotation about the positive X-axis
 		#
@@ -64,6 +64,8 @@ class AHRS(object):
 			mag[2]*sin(roll) - mag[1]*cos(roll),
 			mag[0]*cos(pitch) + mag[1]*sin(pitch)*sin(roll) + mag[2]*sin(pitch)*cos(roll)
 		)
+
+		# heading = atan2(mx/my)
 
 		roll *= 180/pi
 		pitch *= 180/pi
