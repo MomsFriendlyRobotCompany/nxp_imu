@@ -56,28 +56,45 @@ GYRO_LPF_LOW  = (2 << 6)
 
 SENSORS_DPS_TO_RADS = pi/180
 
+bandwidths = [25, 50, 100, 200, 400, 800]
+bwd = {
+	25: GYRO_BW_25,
+	50: GYRO_BW_50,
+	100: GYRO_BW_100,
+	200: GYRO_BW_200,
+	400: GYRO_BW_400,
+	800: GYRO_BW_800
+}
+dps_range = [250, 500, 1000, 2000]
 
 class FXAS21002(I2C):
-	def __init__(self, gyro_range, bus=1, verbose=False):
+	def __init__(self, dps=None, bw=100, bus=1, verbose=False):
+		"""
+		Args:
+			dps: 250, 500, 1000, or 2000 dps
+			bw: 25, 50, 100, 200, 400, 800 Hz
+			bus: i2c bus to use, default is 1
+			verbose: print out some info at start
+		"""
 		I2C.__init__(self, address=FXAS21002C_ADDRESS, bus=bus)
 
 		if self.read8(GYRO_REGISTER_WHO_AM_I) != FXAS21002C_ID:
 			raise Exception('Error talking to FXAS21002C at', hex(FXAS21002C_ID))
 
 		_range = None
-		if gyro_range == GYRO_RANGE_250DPS:
+		if dps == GYRO_RANGE_250DPS:
 			self.scale = GYRO_SENSITIVITY_250DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x03)
 			_range = '250dps'
-		elif gyro_range == GYRO_RANGE_500DPS:
+		elif dps == GYRO_RANGE_500DPS:
 			self.scale = GYRO_SENSITIVITY_500DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x02)
 			_range = '500dps'
-		elif gyro_range == GYRO_RANGE_1000DPS:
+		elif dps == GYRO_RANGE_1000DPS:
 			self.scale = GYRO_SENSITIVITY_1000DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x01)
 			_range = '1000dps'
-		elif gyro_range == GYRO_RANGE_2000DPS:
+		elif dps == GYRO_RANGE_2000DPS:
 			self.scale = GYRO_SENSITIVITY_2000DPS
 			self.write8(GYRO_REGISTER_CTRL_REG0, 0x00)
 			_range = '2000dps'
@@ -107,7 +124,13 @@ class FXAS21002(I2C):
 		# self.write8(GYRO_REGISTER_CTRL_REG1, 0x00)  # don't need this?
 		# self.write8(GYRO_REGISTER_CTRL_REG1, (1 << 6))  # set bit 6, reset bit
 		# self.reset()
-		value = GYRO_BW_100 | GYRO_ACTIVE
+		# value = GYRO_BW_100 | GYRO_ACTIVE
+		value = 0
+		if bw in bandwidths:
+			value = bwd[bw] | GYRO_ACTIVE
+		else:
+			raise Exception('FXAS21002C: invalid bandwidth: {}'.format(bw))
+
 		self.write8(GYRO_REGISTER_CTRL_REG1, value)  # set 100 Hz Active=true
 		time.sleep(0.06)  # 60 ms + 1/ODR
 
@@ -115,8 +138,8 @@ class FXAS21002(I2C):
 			print('='*40)
 			print('FXAS21002C Gyro')
 			print('  Addr: 0x21')
-			print('  Range: +/-', _range)
-			print('  Temperature:', self.temperature(), 'C')
+			print('  Range: +/- {}'.format(_range))
+			print('  Temperature: {} C'.format(self.temperature()))
 
 	def setActive(self):
 		reg = self.read8(GYRO_REGISTER_CTRL_REG1)
@@ -129,32 +152,15 @@ class FXAS21002(I2C):
 
 	def temperature(self):
 		"""Return gyro temperature in C, ONLY works in ACTIVE mode"""
-		data = self.read8(GYRO_REGISTER_CTRL_REG1)
-		# print('intermediate tmp:', t)
-		# return self.twos_comp(t, 8)
+		data = [self.read8(GYRO_REGISTER_CTRL_REG1)]
 		data = bytearray(data)
-		return struct.unpack('b', data)
+		return struct.unpack('b', data)[0]
 
 	def get(self):
 		# 6 bytes: axhi, axlo, ayhi, aylo, azhi, azlo
 		data = self.read_block(0x1, 6)
-		# # print('i2c', data)
-		# # data = self.little_endian(data)
-		# ret = [0]*3
-		# # print('raw', data)
-		# for i in range(0, 6, 2):
-		# 	# data = self.twos_comp(data, 16)
-		# 	# d = self.little_endian2(data[i], data[i+1])
-		# 	d = (data[i] << 8) | data[i+1]
-		# 	# print('d', d)
-		# 	ret[i//2] = self.twos_comp(d, 16) * self.scale
-		# 	# ret[i//2] = d * self.scale
-		#
-		# data = ret
-
-		# return tuple(data)
-
 		data = bytearray(data)
 		data = struct.unpack('>hhh', data)
-		gyro = tuple([(x >> 2) * self.scale for x in data])
-		return gyro
+		gyro = ([x * self.scale for x in data])
+
+		return tuple(gyro)

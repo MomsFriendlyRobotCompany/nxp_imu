@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from __future__ import division, print_function
-from nxp_imu import FXAS21002, FXOS8700
-from nxp_imu.FXAS21002 import GYRO_RANGE_250DPS
+# from nxp_imu import FXAS21002, FXOS8700
+from nxp_imu import GYRO_RANGE_250DPS
 from nxp_imu import I2C
 from nxp_imu import IMU
 from nxp_imu import AHRS
@@ -25,14 +25,13 @@ pi@r2d2 nxp $ sudo i2cdetect -y 1
 
 
 def imu():
-	imu = IMU(verbose=False)
+	imu = IMU(gs=4, dps=2000, verbose=True)
 	header = 67
 	print('-'*header)
 	print("| {:17} | {:20} | {:20} |".format("Accels [g's]", " Magnet [uT]", "Gyros [dps]"))
 	print('-'*header)
 	for _ in range(10):
 		a, m, g = imu.get()
-		# r, p, h = ahrs.getOrientation(a, m)
 		print('| {:>5.2f} {:>5.2f} {:>5.2f} | {:>6.1f} {:>6.1f} {:>6.1f} | {:>6.1f} {:>6.1f} {:>6.1f} |'.format(
 			a[0], a[1], a[2],
 			m[0], m[1], m[2],
@@ -49,7 +48,7 @@ def imu():
 def ahrs():
 	print('WARNING: heading seems broken, I think it is the magnetometer')
 	print('')
-	imu = IMU(verbose=False)
+	imu = IMU(verbose=True)
 	ahrs = AHRS(True)
 	header = 47
 	print('-'*header)

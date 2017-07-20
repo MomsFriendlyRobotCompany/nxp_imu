@@ -55,8 +55,16 @@ MAG_UT_LSB                        = 0.1
 
 
 class FXOS8700(I2C):
-	def __init__(self, rng=None, verbose=False):
-		I2C.__init__(self, FXOS8700_ADDRESS)
+	scale = None  # turn readings into accelerations: 2, 4, 8 G
+
+	def __init__(self, gs=None, bus=1, verbose=False):
+		"""
+		Args
+			gs: accel range: 2, 4, or 8 G's
+			bus: i2c bus to use, default is 1
+			verbose: print out some info at start
+		"""
+		I2C.__init__(self, FXOS8700_ADDRESS, bus=bus)
 		if self.read8(FXOS8700_REGISTER_WHO_AM_I) != FXOS8700_ID:
 			raise Exception('Error talking to FXOS8700 at', hex(FXOS8700_ADDRESS))
 
@@ -64,21 +72,21 @@ class FXOS8700(I2C):
 		self.write8(FXOS8700_REGISTER_CTRL_REG1, 0)
 
 		# Configure the accelerometer
-		_range = None
-		if rng == ACCEL_RANGE_2G or rng is None:
+		# _range = None
+		if gs == 2 or gs is None:
 			self.write8(FXOS8700_REGISTER_XYZ_DATA_CFG, ACCEL_RANGE_2G)
 			self.scale = ACCEL_MG_LSB_2G
-			_range = '2G'
-		elif rng == ACCEL_RANGE_4G:
+			# _range = '2G'
+		elif gs == 4:
 			self.write8(FXOS8700_REGISTER_XYZ_DATA_CFG, ACCEL_RANGE_4G)
 			self.scale = ACCEL_MG_LSB_4G
-			_range = '4G'
-		elif rng == ACCEL_RANGE_8G:
+			# _range = '4G'
+		elif gs == 8:
 			self.write8(FXOS8700_REGISTER_XYZ_DATA_CFG, ACCEL_RANGE_8G)
 			self.scale = ACCEL_MG_LSB_8G
-			_range = '8G'
+			# _range = '8G'
 		else:
-			raise Exception('Invalide accel range: {}'.format(rng))
+			raise Exception('Invalide accel range: {}'.format(gs))
 
 		# High resolution
 		self.write8(FXOS8700_REGISTER_CTRL_REG2, 0x02)
@@ -96,27 +104,31 @@ class FXOS8700(I2C):
 			print('FXOS8700')
 			print('  Accelerometer:')
 			print('    Addr: 0x1F')
-			print('    Range: +/-', _range)
+			print('    Range: +/- {} G'.format(gs))
 			print('  Magnetometer:')
 			print('    Range: +/- 1200')
-			print('  Temperature:', self.temperature(), 'C')
+			print('  Temperature: {} C'.format(self.temperature()))
 
 	def __del__(self):
 		self.i2c.close()
 
 	def temperature(self):
-		"""Return temperature in C"""
-		data = self.read8(FXOS8700_REGISTER_TEMPERATURE)
-		# print('intermediate tmp:', t)
+		"""
+		Return temperature in C
+		Range is -128 to 127 C ... should i worry about the negative?
+		"""
+		data = [self.read8(FXOS8700_REGISTER_TEMPERATURE)]
+		# print('intermediate tmp:', data)
 		# return self.twos_comp(t, 8)
 		data = bytearray(data)
-		return struct.unpack('b', data)
+		return struct.unpack('b', data)[0]
 
 	def get(self):
 		# 13 bytes: status, ax,ay, az, mx, my, mz
 		# status, axhi, axlo, ayhi, aylo ... mxhi, mxlo ...
-		data = self.read_block(0x0, 13)  # why read 0???
-		# data = self.read_block(0x1, 12)  # do this???
+		# data = self.read_block(0x0, 13)  # why read 0???
+		# data = data[1:]  # remove status bit
+		data = self.read_block(0x1, 12)  # do this???
 
 		# data = self.read_block(FXOS8700_REGISTER_STATUS | 0x80, 13)
 		# print('status:', data[0])
@@ -150,16 +162,15 @@ class FXOS8700(I2C):
 		# 		raise Exception('FXOS8700 magnetometer[{}] = {} out of range'.format(i, mag[i]))
 
 		# because MSB is first, this is bigendian
-		if data[0] > 0:
-			print('accel status reg is not zero')
-		data = data[1:]  # remove status bit
+		# if data[0] > 0:
+		# 	print('accel status reg is not zero')
 		data = bytearray(data)
 		data = struct.unpack('>hhhhhh', data)
 
 		d = data[:3]
-		accel = tuple([(x >> 2) * self.scale for x in d])
+		accel = ([(x >> 2) * self.scale for x in d])
 
 		d = data[3:]
-		mag = tuple([x * MAG_UT_LSB for x in d])
+		mag = ([x * MAG_UT_LSB for x in d])
 
-		return (accel, mag)
+		return tuple(accel), tuple(mag)

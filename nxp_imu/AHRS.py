@@ -11,6 +11,7 @@ class AHRS(object):
 		self.deg = deg
 
 	def getOrientation(self, accel, mag):
+		accel = list(accel)
 		m = sqrt(accel[0]**2 + accel[1]**2 + accel[2]**2)
 		if m > 0:
 			accel[0] /= m

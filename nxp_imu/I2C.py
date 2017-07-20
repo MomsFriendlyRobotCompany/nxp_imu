@@ -66,23 +66,23 @@ class I2C(object):
 		# print(hex(self.address), reg, data)
 		self.i2c.write_byte_data(self.address, reg, data)
 
-	def little_endian(self, data):
-		size = len(data)
-		form = [0]*(size//2)
-		for i in range(0, size, 2):
-			form[i//2] = data[i] << 8 | data[i+1]
-		return form
-
-	def little_endian2(self, hi, low):
-		"""
-		Little endian, LSB store in b0:
-			MSB     ...   LSB
-			b15 b14 ... b1 b0
-		"""
-		return (hi << 8) | low
-
-	def twos_comp(self, val, bits):
-		"""compute the 2's complement of int value val"""
-		if (val & (1 << (bits - 1))) != 0:  # if sign bit is set e.g., 8bit: 128-255
-			val = val - (1 << bits)        # compute negative value
-		return val
+	# def little_endian(self, data):
+	# 	size = len(data)
+	# 	form = [0]*(size//2)
+	# 	for i in range(0, size, 2):
+	# 		form[i//2] = data[i] << 8 | data[i+1]
+	# 	return form
+	#
+	# def little_endian2(self, hi, low):
+	# 	"""
+	# 	Little endian, LSB store in b0:
+	# 		MSB     ...   LSB
+	# 		b15 b14 ... b1 b0
+	# 	"""
+	# 	return (hi << 8) | low
+	#
+	# def twos_comp(self, val, bits):
+	# 	"""compute the 2's complement of int value val"""
+	# 	if (val & (1 << (bits - 1))) != 0:  # if sign bit is set e.g., 8bit: 128-255
+	# 		val = val - (1 << bits)        # compute negative value
+	# 	return val
