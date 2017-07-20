@@ -7,6 +7,7 @@ from nxp_imu import FXAS21002, FXOS8700
 # from nxp.IMU import IMU
 # from nxp.AHRS import AHRS
 
+
 def test_dummy():
 	assert True
 
