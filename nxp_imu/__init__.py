@@ -2,13 +2,12 @@
 # from .FXOS8700 import FXOS8700
 from .I2C import I2C
 from .IMU import IMU
-from .AHRS import AHRS
 from .version import __version__
 
 
-class Namespace(object):
-	def __init__(self, **kwds):
-		self.__dict__.update(kwds)
+# class Namespace(object):
+# 	def __init__(self, **kwds):
+# 		self.__dict__.update(kwds)
 
 
 __author__ = 'Kevin J. Walchko'
