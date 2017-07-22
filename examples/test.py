@@ -2,7 +2,6 @@
 
 from __future__ import division, print_function
 from nxp_imu import IMU
-from nxp_imu import AHRS
 import time
 
 """
@@ -43,17 +42,15 @@ def imu():
 
 
 def ahrs():
-	print('WARNING: heading seems broken, I think it is the magnetometer')
 	print('')
 	imu = IMU(verbose=True)
-	ahrs = AHRS(True)
 	header = 47
 	print('-'*header)
 	print("| {:20} | {:20} |".format("Accels [g's]", "Orient(r,p,h) [deg]"))
 	print('-'*header)
 	for _ in range(10):
 		a, m, g = imu.get()
-		r, p, h = ahrs.getOrientation(a, m)
+		r, p, h = imu.getOrientation(a, m)
 		print('| {:>6.1f} {:>6.1f} {:>6.1f} | {:>6.1f} {:>6.1f} {:>6.1f} |'.format(a[0], a[1], a[2], r, p, h))
 		time.sleep(0.50)
 	print('-'*header)
