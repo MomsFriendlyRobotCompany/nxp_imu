@@ -34,7 +34,7 @@ setup(
 	license='MIT',
 	keywords=['raspberry', 'pi', '', 'nxp', 'imu', 'i2c'],
 	packages=[PACKAGE_NAME],
-	install_requires=['build_utils', 'smbus2', 'fake_rpi'],
+	install_requires=['build_utils', 'smbus2'],
 	cmdclass={
 		'make': BuildCommand,
 		'publish': PublishCommand
