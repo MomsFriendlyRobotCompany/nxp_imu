@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Accel and Magnetometer
 # MIT License
 

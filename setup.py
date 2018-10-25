@@ -1,6 +1,6 @@
 from __future__ import print_function
 from setuptools import setup
-from nxp_imu.version import __version__ as VERSION
+from nxp_imu import __version__ as VERSION
 from build_utils import BuildCommand
 from build_utils import PublishCommand
 from build_utils import BinaryDistribution
@@ -18,8 +18,9 @@ setup(
 	name=PACKAGE_NAME,
 	version=VERSION,
 	description='python library to use the Adafruit NXP 9-Dof IMU',
-	long_description=open('readme.rst').read(),
-	url='http://github.com/walchko/{}'.format(PACKAGE_NAME),
+	long_description=open('readme.md').read(),
+    long_description_content_type='text/markdown',
+	url='http://github.com/MomsFriendlyRobotCompany/{}'.format(PACKAGE_NAME),
 	classifiers=[
 		'Development Status :: 4 - Beta',
 		'Intended Audience :: Developers',
