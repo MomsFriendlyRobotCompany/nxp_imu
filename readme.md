@@ -3,13 +3,9 @@
 # NXP IMU
 
 [![image](https://img.shields.io/pypi/l/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
-
 [![image](https://img.shields.io/pypi/pyversions/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
-
 [![image](https://img.shields.io/pypi/wheel/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
-
 [![image](https://img.shields.io/pypi/v/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
-
 [![image](https://travis-ci.org/MomsFriendlyRobotCompany/nxp_imu.svg?branch=master)](https://travis-ci.org/MomsFriendlyRobotCompany/nxp_imu)
 
 Python drivers for [Adafruit Precision NXP
