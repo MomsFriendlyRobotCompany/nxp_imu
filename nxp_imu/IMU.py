@@ -6,7 +6,9 @@ from math import sin, cos, atan2, pi, sqrt
 from thread import Thread, Event
 import time
 
+
 def rad2deg(x): return x*180/pi
+def deg2rad(x): return x*pi/180
 
 
 class IMU(object):
