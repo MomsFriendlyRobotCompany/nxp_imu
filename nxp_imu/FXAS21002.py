@@ -1,5 +1,6 @@
 # Gyro
 # MIT License
+# Kevin Walchko
 
 from __future__ import print_function
 from __future__ import division
@@ -169,7 +170,7 @@ class FXAS21002(I2C):
 		# 6 bytes: axhi, axlo, ayhi, aylo, azhi, azlo
 		data = self.read_block(0x1, 6)
 		data = bytearray(data)
-		data = struct.unpack('>hhh', data)
+		data = struct.unpack('>hhh', data)  # '>' big-endian, 'h' short (2 bytes)
 		gyro = ([x * self.scale for x in data])
 
 		return tuple(gyro)
