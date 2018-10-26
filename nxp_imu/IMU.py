@@ -2,7 +2,7 @@ from __future__ import print_function
 from __future__ import division
 from nxp_imu.FXAS21002 import FXAS21002
 from nxp_imu.FXOS8700 import FXOS8700
-from math import sin, cos, atan2, pi, sqrt, asin
+from math import sin, cos, atan2, pi, sqrt
 from thread import Thread, Event
 import time
 
