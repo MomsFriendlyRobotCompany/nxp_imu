@@ -1,10 +1,8 @@
 from __future__ import print_function
 from __future__ import division
-# import platform
 import os
 
 try:
-	# if platform.system().lower() == 'linux' and 'TRAVIS' in os.environ:
 	if 'TRAVIS' in os.environ:
 		raise ImportError()
 
@@ -14,14 +12,19 @@ except ImportError:
 	from fake_rpi.smbus import SMBus as fakeSMBus
 
 	class SMBus(fakeSMBus):
+		resp = {
+			0x21: 0xD7,
+			0x1F: 0xC7
+		}
 		# @printf
 		def read_byte_data(self, i2c_addr, register):
-				ret = 0xff
-				if i2c_addr == 0x21:
-						ret = 0xD7
-				elif i2c_addr == 0x1F:
-						ret = 0xC7
-				return ret
+			return self.resp[i2c_addr]
+# 			ret = 0xff
+# 			if i2c_addr == 0x21:
+# 					ret = 0xD7
+# 			elif i2c_addr == 0x1F:
+# 					ret = 0xC7
+# 			return ret
 
 """
 accel/mag - 0x1f
@@ -65,24 +68,3 @@ class I2C(object):
 	def write8(self, reg, data):
 		# print(hex(self.address), reg, data)
 		self.i2c.write_byte_data(self.address, reg, data)
-
-	# def little_endian(self, data):
-	# 	size = len(data)
-	# 	form = [0]*(size//2)
-	# 	for i in range(0, size, 2):
-	# 		form[i//2] = data[i] << 8 | data[i+1]
-	# 	return form
-	#
-	# def little_endian2(self, hi, low):
-	# 	"""
-	# 	Little endian, LSB store in b0:
-	# 		MSB     ...   LSB
-	# 		b15 b14 ... b1 b0
-	# 	"""
-	# 	return (hi << 8) | low
-	#
-	# def twos_comp(self, val, bits):
-	# 	"""compute the 2's complement of int value val"""
-	# 	if (val & (1 << (bits - 1))) != 0:  # if sign bit is set e.g., 8bit: 128-255
-	# 		val = val - (1 << bits)        # compute negative value
-	# 	return val
