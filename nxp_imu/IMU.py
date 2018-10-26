@@ -29,30 +29,38 @@ class IMU(object):
         gyro = self.gyro.get()
         return (accel, mag, gyro)
 
-    def getOrientation(self, accel, mag, deg=True):
+    def getOrientation(self, accel, mag, deg=False):
+        """
+        AN4248.pdf
+        roll: eqn 13
+        pitch: eqn 15
+        heading: eqn 22
+        Args:
+            accel: g's
+            mag: uT
+        Return:
+            roll, pitch, heading
+        """
         ax, ay, az = self.normalize(*accel)
         mx, my, mz = self.normalize(*mag)
 
         roll = atan2(ay, az)
         pitch = atan2(-ax, ay*sin(roll)+az*cos(roll))
-
         heading = atan2(
             mz*sin(roll) - my*cos(roll),
             mx*cos(pitch) + my*sin(pitch)*sin(roll) + mz*sin(pitch)*cos(roll)
         )
 
+        heading = heading if heading >= 0.0 else 2*pi + heading
+        heading = heading if heading <= 2*pi else heading - 2*pi
+        
         if deg:
-            roll *= 180/pi
-            pitch *= 180/pi
-            heading *= 180/pi
+            r2d = 180/pi
+            roll *= r2d
+            pitch *= r2d
+            heading *= r2d
 
-            heading = heading if heading >= 0.0 else 360 + heading
-            heading = heading if heading <= 360 else heading - 360
-        else:
-            heading = heading if heading >= 0.0 else 2*pi + heading
-            heading = heading if heading <= 2*pi else heading - 2*pi
-
-        return (roll, pitch, heading)
+        return (roll, pitch, heading,)
 
     def normalize(self, x, y, z):
         """Return a unit vector"""
