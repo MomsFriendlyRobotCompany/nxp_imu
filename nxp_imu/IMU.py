@@ -3,10 +3,10 @@ from __future__ import division
 from nxp_imu.FXAS21002 import FXAS21002
 from nxp_imu.FXOS8700 import FXOS8700
 from math import sin, cos, atan2, pi, sqrt, asin
-# from math import radians as deg2rad
-# from math import degrees as rad2deg
 from thread import Thread, Event
 import time
+
+def rad2deg(x): return x*180/pi
 
 
 class IMU(object):
@@ -30,13 +30,15 @@ class IMU(object):
 
     def getOrientation(self, accel, mag, deg=False):
         """
-        AN4248.pdf
+        From AN4248.pdf
         roll: eqn 13
         pitch: eqn 15
         heading: eqn 22
-        Args:
+        
+        Args with biases removed:
             accel: g's
             mag: uT
+        
         Return:
             roll, pitch, heading
         """
@@ -50,8 +52,9 @@ class IMU(object):
             mx*cos(pitch) + my*sin(pitch)*sin(roll) + mz*sin(pitch)*cos(roll)
         )
 
-        heading = heading if heading >= 0.0 else 2*pi + heading
-        heading = heading if heading <= 2*pi else heading - 2*pi
+#         heading = heading if heading >= 0.0 else 2*pi + heading
+#         heading = heading if heading <= 2*pi else heading - 2*pi
+        heading %= (2*pi)
         
         if deg:
             r2d = 180/pi
