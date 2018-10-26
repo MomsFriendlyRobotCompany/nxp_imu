@@ -1,6 +1,5 @@
 from __future__ import print_function
 from __future__ import division
-# from math import atan2, sin, cos, pi
 from nxp_imu.FXAS21002 import FXAS21002
 from nxp_imu.FXOS8700 import FXOS8700
 from math import sin, cos, atan2, pi, sqrt, asin
@@ -102,12 +101,17 @@ class Rate(object):
 class ThreadedIMU(IMU):
     def __init__(self, dps=250, gs=2, gyro_bw=100, verbose=False):
         """
+        This is a threaded IMU driver.
+        
+        value?
+        add filter to thread?
         """
         IMU.__init__(self, dps=250, gs=2, gyro_bw=100, verbose=False)
         self.shutting_down = False
         self.accel = (0,0,0,)
         self.mag = (0,0,0,)
         self.gyro = (0,0,0,)
+        self.filter = None
 
     def __del__(self):
         self.stop()
@@ -116,6 +120,7 @@ class ThreadedIMU(IMU):
         return (self.accel, self.mag, self.gyro,)
 
     def run(self, hertz):
+        """Data capture thread"""
         rate = Rate(hertz)
         while not self.shutting_down:
             self.accel, self.mag = self.accel.get()
@@ -124,12 +129,14 @@ class ThreadedIMU(IMU):
             rate.sleep()
 
     def start(self, hertz):
+        """Start thread"""
         self.thread = Thread(
             name='imu_thread',
             target=self.run,
             args=(hertz,))
 
     def stop(self, timeout=0.1):
+        """Stop thread"""
         self.shutting_down = True
         self.thread.join(timeout)
         if self.thread.is_alive():
