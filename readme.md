@@ -47,6 +47,21 @@ tutorial](https://learn.adafruit.com/nxp-precision-9dof-breakout?view=all)
 
 ## Usage
 
+Verifying it is there:
+
+```
+sudo i2cdetect -y 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1f 
+20: -- 21 -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --    
+```
+
 See the `examples` folder, but to have the IMU run at 4G and 2000
 degrees per second:
 
