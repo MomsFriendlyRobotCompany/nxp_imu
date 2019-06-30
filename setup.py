@@ -1,11 +1,12 @@
 from __future__ import print_function
 from setuptools import setup
-from nxp_imu import __version__ as VERSION
+# from nxp_imu import __version__ as VERSION
+from build_utils import get_pkg_version
 from build_utils import BuildCommand
 from build_utils import PublishCommand
 from build_utils import BinaryDistribution
 
-
+VERSION = get_pkg_version('nxp_imu/__init__.py')
 PACKAGE_NAME = 'nxp_imu'
 BuildCommand.pkg = PACKAGE_NAME
 PublishCommand.pkg = PACKAGE_NAME
