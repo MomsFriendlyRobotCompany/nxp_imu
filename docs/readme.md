@@ -1,3 +1,5 @@
+<img src="pics/imu-iso.jpg" width="50%">
+
 # Documents
 
 - **AN4246.pdf:** Calibrating an eCompass in the Presence of Hard and Soft-Iron Interference
