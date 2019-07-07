@@ -175,6 +175,11 @@ dps: degrees per second
 
 Done ...
 ```
+## Decination Angle
+
+Remeber, depending on where you are on the Earth, true North changes
+because the Earth is *not* a perfect sphere. You can get the declination
+angle for your location from: http://www.magnetic-declination.com/
 
 ## Documents
 
