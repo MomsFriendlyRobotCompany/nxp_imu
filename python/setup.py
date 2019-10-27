@@ -19,7 +19,7 @@ setup(
 	name=PACKAGE_NAME,
 	version=VERSION,
 	description='python library to use the Adafruit NXP 9-Dof IMU',
-	long_description=open('readme.md').read(),
+	long_description=open('../readme.md').read(),
     long_description_content_type='text/markdown',
 	url='http://github.com/MomsFriendlyRobotCompany/{}'.format(PACKAGE_NAME),
 	classifiers=[
@@ -27,14 +27,14 @@ setup(
 		'Intended Audience :: Developers',
 		'License :: OSI Approved :: MIT License',
 		'Operating System :: OS Independent',
-		'Programming Language :: Python :: 2.7',
+		'Programming Language :: Python :: 3.7',
 		'Programming Language :: Python :: 3.6',
 		'Topic :: Software Development :: Libraries',
 		'Topic :: Software Development :: Libraries :: Python Modules',
 		'Topic :: Software Development :: Libraries :: Application Frameworks'
 	],
 	license='MIT',
-	keywords=['raspberry', 'pi', '', 'nxp', 'imu', 'i2c'],
+	keywords=['raspberry', 'pi', 'ins', 'nxp', 'imu', 'i2c'],
 	packages=[PACKAGE_NAME],
 	install_requires=['build_utils', 'smbus2'],
 	cmdclass={

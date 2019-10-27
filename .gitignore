@@ -8,3 +8,5 @@ dist
 *egg-info
 .eggs
 .ipynb_checkpoints
+.catkin_workspace
+devel
