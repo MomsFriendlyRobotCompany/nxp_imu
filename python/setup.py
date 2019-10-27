@@ -9,36 +9,37 @@ from build_utils import BinaryDistribution
 VERSION = get_pkg_version('nxp_imu/__init__.py')
 PACKAGE_NAME = 'nxp_imu'
 BuildCommand.pkg = PACKAGE_NAME
+BuildCommand.py2 = False  # not supporting python2 anymore
 PublishCommand.pkg = PACKAGE_NAME
 PublishCommand.version = VERSION
 
 
 setup(
-	author='Kevin Walchko',
-	author_email='walchko@users.noreply.github.com',
-	name=PACKAGE_NAME,
-	version=VERSION,
-	description='python library to use the Adafruit NXP 9-Dof IMU',
-	long_description=open('../readme.md').read(),
+    author='Kevin Walchko',
+    author_email='walchko@users.noreply.github.com',
+    name=PACKAGE_NAME,
+    version=VERSION,
+    description='python library to use the Adafruit NXP 9-Dof IMU',
+    long_description=open('../readme.md').read(),
     long_description_content_type='text/markdown',
-	url='http://github.com/MomsFriendlyRobotCompany/{}'.format(PACKAGE_NAME),
-	classifiers=[
-		'Development Status :: 4 - Beta',
-		'Intended Audience :: Developers',
-		'License :: OSI Approved :: MIT License',
-		'Operating System :: OS Independent',
-		'Programming Language :: Python :: 3.7',
-		'Programming Language :: Python :: 3.6',
-		'Topic :: Software Development :: Libraries',
-		'Topic :: Software Development :: Libraries :: Python Modules',
-		'Topic :: Software Development :: Libraries :: Application Frameworks'
-	],
-	license='MIT',
-	keywords=['raspberry', 'pi', 'ins', 'nxp', 'imu', 'i2c'],
-	packages=[PACKAGE_NAME],
-	install_requires=['build_utils', 'smbus2'],
-	cmdclass={
-		'make': BuildCommand,
-		'publish': PublishCommand
-	}
+    url='http://github.com/MomsFriendlyRobotCompany/{}'.format(PACKAGE_NAME),
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Software Development :: Libraries :: Application Frameworks'
+    ],
+    license='MIT',
+    keywords=['raspberry', 'pi', 'ins', 'nxp', 'imu', 'i2c'],
+    packages=[PACKAGE_NAME],
+    install_requires=['build_utils', 'smbus2'],
+    cmdclass={
+        'make': BuildCommand,
+        'publish': PublishCommand
+    }
 )
