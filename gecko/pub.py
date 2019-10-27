@@ -8,16 +8,20 @@ if 1:
     sys.modules['smbus'] = fake_rpi.smbus # Fake smbus (I2C)
 
 from pygeckopb import Imu, protobufPack
+from pygecko.multiprocessing import geckopy
+from pygecko.transport.zmq_sub_pub import Pub
 from nxp_imu import IMU
 import time
+from squaternion import euler2quat, Quaternion
 
 
 if __name__ == "__main__":
     geckopy.init_node()
-    pub = Publisher()
+    pub = Pub()
     pub.bind()
     rate = geckopy.Rate(20)
     imu = IMU(gs=2, dps=2000, verbose=False)
+    imu.setBias((0.1, -0.02, .25), None, None)
 
     msg = Imu()
 
@@ -36,8 +40,12 @@ if __name__ == "__main__":
         msg.magnetic_field.y = m.y
         msg.magnetic_field.z = m.z
 
-        # r, p, h = imu.getOrientation(a, m)
-        # msg.orientation.w =
+        r, p, h = imu.getOrientation(a, m)
+        q = euler2quat(r, p, h, degrees=True)
+        msg.orientation.w = q.w
+        msg.orientation.x = q.x
+        msg.orientation.y = q.y
+        msg.orientation.z = q.z
 
         pub.publish(protobufPack(msg))
 

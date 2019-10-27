@@ -25,45 +25,44 @@ class IMU(object):
         """
         """
         pass
-    
+
     def setBias(self, a, m, g):
         """
         Set the bias for accel, mag, and/or gyro. If you do
-        not want to set a bias correction for a sensor, just 
+        not want to set a bias correction for a sensor, just
         pass None.
         """
         if a and len(a) == 3:
             self.bias_a = a
-        
+
         if m and len(m) == 3:
             self.bias_m = m
-            
+
         if g and len(g) == 3:
             self.bias_g = g
            
-
     def get(self):
         """
         Returns a reading from all 3 sensors. If a bias correction
         was set, then the sensor gets corrected.
-        
+
         sensor = sensor_raw - bias
         """
         accel, mag = self.accel.get()
         gyro = self.gyro.get()
-        
+
         if self.bias_a:
             a = self.bias_a
             accel = (accel[0]-a[0],accel[1]-a[1],accel[2]-a[2],)
-            
+
         if self.bias_g:
             g = self.bias_g
             gyro = (gyro[0]-g[0],gyro[1]-g[1],gyro[2]-g[2],)
-            
+
         if self.bias_m:
             m = self.bias_m
             mag = (mag[0]-m[0], mag[1]-m[1], mag[2]-m[2],)
-            
+
         return (accel, mag, gyro)
 
     def getOrientation(self, accel, mag, deg=False):
@@ -72,11 +71,11 @@ class IMU(object):
         roll: eqn 13
         pitch: eqn 15
         heading: eqn 22
-        
+
         Args with biases removed:
             accel: g's
             mag: uT
-        
+
         Return:
             roll, pitch, heading
         """
@@ -93,7 +92,7 @@ class IMU(object):
 #         heading = heading if heading >= 0.0 else 2*pi + heading
 #         heading = heading if heading <= 2*pi else heading - 2*pi
         heading %= (2*pi)
-        
+
         if deg:
             r2d = 180/pi
             roll *= r2d
@@ -143,7 +142,7 @@ class ThreadedIMU(IMU):
     def __init__(self, dps=250, gs=2, gyro_bw=100, verbose=False):
         """
         This is a threaded IMU driver.
-        
+
         value?
         add filter to thread?
         """
