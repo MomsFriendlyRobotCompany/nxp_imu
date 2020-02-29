@@ -7,7 +7,7 @@
 [![image](https://img.shields.io/pypi/wheel/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
 [![image](https://img.shields.io/pypi/v/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
 [![Downloads](https://img.shields.io/pypi/dm/nxp_imu.svg)](https://img.shields.io/pypi/dm/nxp_imu.svg)
-[![Actions Status](https://github.com/MomsFriendlyRobotCompany/nxp_imu/workflows/CheckPackage/badge.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu/actions)
+[![Actions Status](https://github.com/MomsFriendlyRobotCompany/nxp_imu/workflows/Python/badge.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu/actions)
 ![GitHub](https://img.shields.io/github/license/MomsFriendlyRobotCompany/nxp_imu)
 
 
