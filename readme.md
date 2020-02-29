@@ -6,7 +6,10 @@
 [![image](https://img.shields.io/pypi/pyversions/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
 [![image](https://img.shields.io/pypi/wheel/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
 [![image](https://img.shields.io/pypi/v/nxp_imu.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu)
-[![image](https://travis-ci.org/MomsFriendlyRobotCompany/nxp_imu.svg?branch=master)](https://travis-ci.org/MomsFriendlyRobotCompany/nxp_imu)
+[![Downloads](https://img.shields.io/pypi/dm/nxp_imu.svg)](https://img.shields.io/pypi/dm/nxp_imu.svg)
+[![Actions Status](https://github.com/MomsFriendlyRobotCompany/nxp_imu/workflows/CheckPackage/badge.svg)](https://github.com/MomsFriendlyRobotCompany/nxp_imu/actions)
+![GitHub](https://img.shields.io/github/license/MomsFriendlyRobotCompany/nxp_imu)
+
 
 Python drivers for [Adafruit Precision NXP
 9-DOF](https://www.adafruit.com/product/3463). This is basically a
@@ -52,13 +55,13 @@ Verifying it is there:
 ```
 sudo i2cdetect -y 1
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
-10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1f 
-20: -- 21 -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 1f
+20: -- 21 -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 70: -- -- -- -- -- -- -- --    
 ```
 
@@ -68,7 +71,6 @@ degrees per second:
 ```python
 #!/usr/bin/env python3
 
-from __future__ import division, print_function
 from nxp_imu import IMU, Rate
 import time
 
@@ -100,14 +102,14 @@ while True:
     print('  g: gravity')
     print('dps: degrees per second')
     print('')
-    
+
     rate.sleep()
 ```
 
 ## Examples
 
 ```
-pi@nav examples $ ./test.py 
+pi@nav examples $ ./test.py
 
 ========================================
 FXOS8700

@@ -10,3 +10,5 @@ dist
 .ipynb_checkpoints
 .catkin_workspace
 devel
+old
+.*_cache
