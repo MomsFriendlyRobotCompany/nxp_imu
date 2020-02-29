@@ -35,6 +35,8 @@ jobs:
               #   version: 1.0.0b3
             - name: Turn off Virtualenvs
               run: poetry config virtualenvs.create false
+            - name: install other python packages
+              run: pip install fake_rpi
             - name: Install packages
               run: poetry install
             - name: Run PyTest
