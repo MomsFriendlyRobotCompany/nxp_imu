@@ -12,3 +12,4 @@ dist
 devel
 old
 .*_cache
+poetry.lock
